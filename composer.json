@@ -1,17 +1,13 @@
 {
-    "name": "laravel/framework",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "name": "litp/sae-laravel-framework",
+    "description": "The Laravel Framework for SAE environment",
+    "keywords": ["framework", "laravel","SAE"],
     "license": "MIT",
-    "homepage": "http://laravel.com",
-    "support": {
-        "issues": "https://github.com/laravel/framework/issues",
-        "source": "https://github.com/laravel/framework"
-    },
+    "homepage": "https://github.com/litp/sae-laravel-framework",
     "authors": [
         {
-            "name": "Taylor Otwell",
-            "email": "taylorotwell@gmail.com"
+            "name": "Li Tianpeng",
+            "email": "litianpeng200@gmail.com"
         }
     ],
     "require": {
@@ -38,7 +34,7 @@
         "symfony/routing": "2.8.*|3.0.*",
         "symfony/translation": "2.8.*|3.0.*",
         "symfony/var-dumper": "2.8.*|3.0.*",
-        "vlucas/phpdotenv": "~2.2"
+        "litp/sae-phpdotenv": "*"
     },
     "replace": {
         "illuminate/auth": "self.version",
