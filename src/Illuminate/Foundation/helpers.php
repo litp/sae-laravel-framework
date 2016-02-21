@@ -330,7 +330,12 @@ if (! function_exists('env')) {
      */
     function env($key, $default = null)
     {
-        $value = getenv($key);
+        // Try to the variable from $_ENV first, if not set, try getenv() then
+        if(isset($_ENV[$key])){
+            $value = $_ENV[$key];
+        } else {
+            $value = getenv($key);
+        }
 
         if ($value === false) {
             return value($default);
