@@ -325,12 +325,22 @@ class DatabaseEloquentModelTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('2015-04-17 22:59:01', $model->fromDateTime($value));
 
         $value = new DateTime('2015-04-17 22:59:01');
+        $this->assertInstanceOf(DateTime::class, $value);
+        $this->assertInstanceOf(DateTimeInterface::class, $value);
+        $this->assertEquals('2015-04-17 22:59:01', $model->fromDateTime($value));
+
+        $value = new DateTimeImmutable('2015-04-17 22:59:01');
+        $this->assertInstanceOf(DateTimeImmutable::class, $value);
+        $this->assertInstanceOf(DateTimeInterface::class, $value);
         $this->assertEquals('2015-04-17 22:59:01', $model->fromDateTime($value));
 
         $value = '2015-04-17 22:59:01';
         $this->assertEquals('2015-04-17 22:59:01', $model->fromDateTime($value));
 
         $value = '2015-04-17';
+        $this->assertEquals('2015-04-17 00:00:00', $model->fromDateTime($value));
+
+        $value = '2015-4-17';
         $this->assertEquals('2015-04-17 00:00:00', $model->fromDateTime($value));
 
         $value = '1429311541';
@@ -1457,12 +1467,12 @@ class EloquentModelBootingTestStub extends Model
 {
     public static function unboot()
     {
-        unset(static::$booted[get_called_class()]);
+        unset(static::$booted[static::class]);
     }
 
     public static function isBooted()
     {
-        return array_key_exists(get_called_class(), static::$booted);
+        return array_key_exists(static::class, static::$booted);
     }
 }
 

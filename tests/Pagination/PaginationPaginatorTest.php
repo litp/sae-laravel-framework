@@ -2,6 +2,7 @@
 
 use Mockery as m;
 use Illuminate\Pagination\UrlWindow;
+use Illuminate\Pagination\AbstractPaginator;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator as Paginator;
 use Illuminate\Pagination\BootstrapThreePresenter as BootstrapPresenter;
@@ -41,6 +42,12 @@ class PaginationPaginatorTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('http://website.com?foo=2', $p->url($p->currentPage()));
         $this->assertEquals('http://website.com?foo=1', $p->url($p->currentPage() - 1));
         $this->assertEquals('http://website.com?foo=1', $p->url($p->currentPage() - 2));
+    }
+
+    public function testPaginatorCanGenerateUrlsWithQuery()
+    {
+        $p = new LengthAwarePaginator($array = ['item1', 'item2', 'item3', 'item4'], 4, 2, 2, ['path' => 'http://website.com?sort_by=date', 'pageName' => 'foo']);
+        $this->assertEquals('http://website.com?sort_by=date&foo=2', $p->url($p->currentPage()));
     }
 
     public function testLengthAwarePaginatorCanGenerateUrlsWithoutTrailingSlashes()
@@ -122,15 +129,15 @@ class PaginationPaginatorTest extends PHPUnit_Framework_TestCase
     {
         $p = new LengthAwarePaginator([], 1, 1, 1);
         $presenter = m::mock('StdClass');
-        Illuminate\Pagination\AbstractPaginator::presenter(function () use ($presenter) {
+        AbstractPaginator::presenter(function () use ($presenter) {
             return $presenter;
         });
         $presenter->shouldReceive('render')->andReturn('presenter');
 
         $this->assertEquals('presenter', $p->render());
 
-        Illuminate\Pagination\AbstractPaginator::presenter(function () {
-            return;
+        AbstractPaginator::presenter(function () {
+            //
         });
     }
 
