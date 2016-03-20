@@ -34,7 +34,7 @@
         "symfony/routing": "2.8.*|3.0.*",
         "symfony/translation": "2.8.*|3.0.*",
         "symfony/var-dumper": "2.8.*|3.0.*",
-        "litp/sae-phpdotenv": "dev-master"
+        "litp/sae-phpdotenv": "dev-master/2.2.x-dev"
     },
     "replace": {
         "illuminate/auth": "self.version",
