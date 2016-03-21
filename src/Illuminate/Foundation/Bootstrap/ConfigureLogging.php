@@ -68,7 +68,8 @@ class ConfigureLogging
      */
     protected function configureSingleHandler(Application $app, Writer $log)
     {
-        $log->useFiles($app->storagePath().'/logs/laravel.log');
+        $logPath = env('SAE',false)? env('SAE_STORAGE',''). '/logs/laravel.log': $app->storagePath() . '/logs/laravel.log';
+        $log->useFiles($logPath);
     }
 
     /**
@@ -80,8 +81,10 @@ class ConfigureLogging
      */
     protected function configureDailyHandler(Application $app, Writer $log)
     {
+        $logPath = env('SAE',false)? env('SAE_STORAGE',''). '/logs/laravel.log': $app->storagePath() . '/logs/laravel.log';
+        
         $log->useDailyFiles(
-            $app->storagePath().'/logs/laravel.log',
+            $logPath,
             $app->make('config')->get('app.log_max_files', 5)
         );
     }
